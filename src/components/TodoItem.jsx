@@ -1,28 +1,53 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeTodo } from "../store/todoSlice";
+import { removeTodo, updateTodo } from "../store/todoSlice";
 
 const TodoItem = ({ id, title, completed }) => {
   const dispatch = useDispatch();
   const deleteTodo = () => {
     dispatch(
       removeTodo({
-        id: id,
+        id,
+      })
+    );
+  };
+  const checkboxHandler = () => {
+    dispatch(
+      updateTodo({
+        id,
+        completed: !completed,
       })
     );
   };
   return (
-    <li className={`list-group-item ${completed && "list-group-item-success"}`}>
-      <div className="d-flex justify-content-between">
-        <span className="d-flex align-items-center">
+    <li
+      style={{
+        padding: "8px",
+        borderRadius: "12px",
+        backgroundColor: `${completed ? "#c0e0b7" : "transparent"}`,
+        borderBottom: "1px solid black",
+        marginBottom: "8px",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <span style={{ display: "flex", alignItems: "center" }}>
           <input
             type="checkbox"
-            className="mr-3"
+            style={{ marginRight: "16px" }}
             defaultChecked={completed}
+            onClick={checkboxHandler}
           ></input>
           {title}
         </span>
-        <button className="btn btn-danger" onClick={deleteTodo}>
+        <button
+          style={{
+            backgroundColor: "#ff9a9e",
+            border: "none",
+            borderRadius: "12px",
+            cursor: "pointer",
+          }}
+          onClick={deleteTodo}
+        >
           Delete
         </button>
       </div>

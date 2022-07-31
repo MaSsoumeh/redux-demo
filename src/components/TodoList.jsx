@@ -6,7 +6,7 @@ const TodoList = () => {
   const todos = useSelector((state) => state.todos);
 
   return (
-    <ul className="list-group">
+    <ul style={{ width: "40%", listStyle: "none" }}>
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}
